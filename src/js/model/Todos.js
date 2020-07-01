@@ -18,7 +18,7 @@ export default class Todos {
 
       return this.list;
     } catch (e) {
-      console.error(e);
+      console.error(e.response.data);
     }
   }
 
@@ -31,5 +31,46 @@ export default class Todos {
     this.pagination.currentPage = targetPage;
 
     return this.pagination.currentPage;
+  }
+
+  findTodoIndex(id) {
+    return this.list.findIndex((el) => el.id === id);
+  }
+
+  async toggleTodoCompletion(id) {
+    if (this.findTodoIndex(id) > -1) {
+      try {
+        const RESPONSE = await axios.patch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+          completed: !this.list[this.findTodoIndex(id)].completed,
+        });
+
+        this.list[this.findTodoIndex(id)].completed = RESPONSE.data.completed;
+
+        return RESPONSE.data;
+      } catch (e) {
+        console.error(e.response.data);
+      }
+    }
+  }
+
+  async formSubmission(textarea = '', select = true, number = 1) {
+    if (textarea.length > 0) {
+      try {
+        const RESPONSE = await axios.post(`https://jsonplaceholder.typicode.com/todos`, {
+          title: textarea,
+          completed: Boolean(select),
+          userId: Number(number),
+        });
+
+        this.list.push(RESPONSE.data);
+        this.setPagination();
+
+        return RESPONSE.data;
+      } catch (e) {
+        console.error(e.response.data);
+      }
+    } else {
+      return false;
+    }
   }
 }

@@ -5,12 +5,14 @@ export const addLoadingState = () => {
 };
 
 const renderSingleTodo = (item) => {
-  return `<button type="button" class="list-group-item list-group-item-action" ${item.completed === true ? 'disabled' : ''} data-id="${item.id}">${item.title}</button>`;
+  return `<button type="button" class="list-group-item list-group-item-action ${
+    item.completed === true ? 'list-group-item-success' : 'list-group-item-secondary'
+  } js-todo-item" data-id="${item.id}">${item.title}</button>`;
 };
 
 const renderTodosList = (list, pagination) => {
   if (list.length > 0) {
-    return `<div class="list-group">${list
+    return `<div class="list-group" style="min-height: 393px;">${list
       .map((el, i) => {
         const BOTTOM_VALUE_IN_PAGE = pagination.currentPage * pagination.amountPerPage - pagination.amountPerPage;
         const TOP_VALUE_IN_PAGE = pagination.currentPage * pagination.amountPerPage - 1;
@@ -26,9 +28,13 @@ const renderTodosList = (list, pagination) => {
 };
 
 const renderPaginationButtons = (pagination) => {
-  const PREVIOUS = `<li class="page-item"><button class="page-link js-pagination-button" data-pagination="${pagination.currentPage - 1}"><</button></li>`;
+  const PREVIOUS = `<li class="page-item"><button class="page-link js-pagination-button" data-pagination="${
+    pagination.currentPage - 1
+  }"><<span class="sr-only">(previous)</span></button></li>`;
   const CURRENT = `<li class="page-item"><a class="page-link" href="#" tabindex="-1" aria-disabled="true" disabled>${pagination.currentPage}<span class="sr-only">(current)</span></a></li>`;
-  const NEXT = `<li class="page-item"><button class="page-link js-pagination-button" data-pagination="${pagination.currentPage + 1}">></button></li>`;
+  const NEXT = `<li class="page-item"><button class="page-link js-pagination-button" data-pagination="${
+    pagination.currentPage + 1
+  }">><span class="sr-only">(next)</span></button></li>`;
 
   return `${pagination.currentPage > 1 ? PREVIOUS : ''}${CURRENT}${pagination.currentPage < pagination.totalPages ? NEXT : ''}`;
 };

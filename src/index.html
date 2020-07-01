@@ -13,39 +13,33 @@
       <div class="container">
         <div class="row">
           <div class="col 12">
-            <form class="todo-form" id="todo-form" novalidate>
-              <button type="button" class="btn btn-primary todo-form__toggler" data-target=".todo-form__container">Add todo +</button>
+            <form class="todo-form position-relative" id="todo-form" novalidate>
+              <button type="button" class="btn btn-primary position-relative todo-form__toggler" data-target=".todo-form__container">Add todo +</button>
 
-              <div class="todo-form__container">
+              <div class="position-relative todo-form__container">
                 <div class="form-group">
-                  <label for="todoDescription">Todo description</label>
-                  <textarea class="form-control" id="todoDescription" rows="3"></textarea>
+                  <label for="todo-form__description">Todo description</label>
+                  <textarea class="form-control" id="todo-form__description" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
-                  <label for="todoIsComplete">Is this todo complete?</label>
-                  <select class="form-control" id="todoIsComplete">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <label for="todo-form__is-complete">Is this todo complete?</label>
+                  <select class="form-control" id="todo-form__is-complete">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
                   </select>
                 </div>
+
+                <div class="form-group">
+                  <label for="todo-form__user-id">User</label>
+                  <select class="form-control" id="todo-form__user-id"></select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </form>
             
-            <div class="todo-list" id="todo-list">
-              <!--<div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action active">
-                  Cras justo odio
-                </button>
-                <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
-                <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-                <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-                <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
-              </div>-->
-            </div>
+            <div class="todo-list" id="todo-list"></div>
           </div>
         </div>
       </div>
