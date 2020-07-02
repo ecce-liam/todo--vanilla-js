@@ -22,9 +22,11 @@ export default class Todos {
     }
   }
 
-  setPagination() {
+  async setPagination() {
     this.pagination.totalItems = this.list.length;
     this.pagination.totalPages = Math.ceil(this.list.length / this.pagination.amountPerPage);
+
+    return this.pagination;
   }
 
   paginationNavigation(targetPage) {
@@ -63,7 +65,6 @@ export default class Todos {
         });
 
         this.list.push(RESPONSE.data);
-        this.setPagination();
 
         return RESPONSE.data;
       } catch (e) {

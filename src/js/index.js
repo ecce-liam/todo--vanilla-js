@@ -10,29 +10,40 @@ window.addEventListener('load', async () => {
   todosView.addLoadingState();
 
   try {
-    await STATE.users.getList();
-    formView.addUsersForm(STATE.users.list);
+    await STATE.users.getList().then(() => {
+      formView.addUsersForm(STATE.users.list);
+    });
     await STATE.todos.getList();
-    await STATE.todos.setPagination();
-    todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
-    formView.removeLoadingState();
+    await STATE.todos.setPagination().then(() => {
+      todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
+    });
   } catch (e) {
     console.error(e);
+  } finally {
+    formView.removeLoadingState();
   }
 });
 
 ELEMENTS.todoForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  formView.addLoadingState();
+  todosView.addLoadingState();
+
   try {
-    formView.addLoadingState();
-    await STATE.todos.formSubmission(ELEMENTS.todoFormDescription.value, ELEMENTS.todoFormIsComplete.value, ELEMENTS.todoFormUser.value);
-    todosView.addLoadingState();
-    todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
-    formView.clearFields();
-    formView.removeLoadingState();
+    await STATE.todos
+      .formSubmission(ELEMENTS.todoFormDescription.value, ELEMENTS.todoFormIsComplete.value, ELEMENTS.todoFormUser.value)
+      .then(() => {
+        return STATE.todos.setPagination();
+      })
+      .then(() => {
+        todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
+      });
   } catch (e) {
     console.error(e);
+  } finally {
+    formView.clearFields();
+    formView.removeLoadingState();
   }
 });
 
