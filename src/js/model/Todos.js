@@ -18,15 +18,13 @@ export default class Todos {
 
       return this.list;
     } catch (e) {
-      console.error(e.response.data);
+      throw e;
     }
   }
 
-  async setPagination() {
+  setPagination() {
     this.pagination.totalItems = this.list.length;
     this.pagination.totalPages = Math.ceil(this.list.length / this.pagination.amountPerPage);
-
-    return this.pagination;
   }
 
   paginationNavigation(targetPage) {
@@ -50,7 +48,7 @@ export default class Todos {
 
         return RESPONSE.data;
       } catch (e) {
-        console.error(e.response.data);
+        throw e;
       }
     }
   }
@@ -68,7 +66,7 @@ export default class Todos {
 
         return RESPONSE.data;
       } catch (e) {
-        console.error(e.response.data);
+        throw e;
       }
     } else {
       return false;

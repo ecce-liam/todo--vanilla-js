@@ -1,5 +1,9 @@
 import { ELEMENTS } from './base';
 
+export const formContainerToggle = () => {
+  ELEMENTS.todoFormContainer.classList.toggle('show');
+};
+
 export const addLoadingState = () => {
   ELEMENTS.todoForm.insertAdjacentHTML(
     'afterbegin',
@@ -18,5 +22,8 @@ export const clearFields = () => {
 };
 
 export const addUsersForm = (users) => {
-  ELEMENTS.todoFormUser.insertAdjacentHTML('afterbegin', `${users.map((user) => `<option value="${user.id}">${user.name}</option>`).join('')}`);
+  ELEMENTS.todoFormUser.insertAdjacentHTML(
+    'afterbegin',
+    `${users.map((user) => `<option value="${user.id}">${user.name}</option>`).join('')}`
+  );
 };

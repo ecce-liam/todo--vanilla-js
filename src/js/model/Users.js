@@ -12,7 +12,7 @@ export default class Users {
 
       return this.list;
     } catch (e) {
-      console.error(e.response.data);
+      throw e;
     }
   }
 }

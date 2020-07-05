@@ -10,18 +10,22 @@ window.addEventListener('load', async () => {
   todosView.addLoadingState();
 
   try {
-    await STATE.users.getList().then(() => {
-      formView.addUsersForm(STATE.users.list);
-    });
+    await STATE.users.getList();
+    formView.addUsersForm(STATE.users.list);
     await STATE.todos.getList();
-    await STATE.todos.setPagination().then(() => {
-      todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
-    });
+    STATE.todos.setPagination();
+    todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
   } catch (e) {
     console.error(e);
   } finally {
     formView.removeLoadingState();
   }
+});
+
+ELEMENTS.todoFormToggler.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  formView.formContainerToggle();
 });
 
 ELEMENTS.todoForm.addEventListener('submit', async (e) => {
@@ -31,14 +35,13 @@ ELEMENTS.todoForm.addEventListener('submit', async (e) => {
   todosView.addLoadingState();
 
   try {
-    await STATE.todos
-      .formSubmission(ELEMENTS.todoFormDescription.value, ELEMENTS.todoFormIsComplete.value, ELEMENTS.todoFormUser.value)
-      .then(() => {
-        return STATE.todos.setPagination();
-      })
-      .then(() => {
-        todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
-      });
+    await STATE.todos.formSubmission(
+      ELEMENTS.todoFormDescription.value,
+      ELEMENTS.todoFormIsComplete.value,
+      ELEMENTS.todoFormUser.value
+    );
+    STATE.todos.setPagination();
+    todosView.renderTodos(STATE.todos.list, STATE.todos.pagination);
   } catch (e) {
     console.error(e);
   } finally {

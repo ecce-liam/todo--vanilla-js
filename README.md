@@ -13,7 +13,7 @@ http://jsonplaceholder.typicode.com
 
 
 ### Todos on the Todos
-- ~~ get the form adding a todo ~~
+- ~~get the form adding a todo~~
 - ~~get the form adding todo with userId~~
 - ~~get users from user api~~
 - Split the Todos per user
