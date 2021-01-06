@@ -20,7 +20,7 @@
   "homepage": "https://github.com/ecce-liam/todo--vanilla-js#readme",
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap-icons": "^1.0.0-alpha5",
     "style-loader": "^1.2.1"
   },
